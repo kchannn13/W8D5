@@ -64,5 +64,26 @@ function curriedSum(numArgs) {
 };
 
 
-const newSum = curriedSum(4);
-console.log(newSum(5)(30)(20)(1)); // => 56 
+// const newSum = curriedSum(4);
+// console.log(newSum(5)(30)(20)(1)); // => 56 
+
+Function.prototype.curry = function(numArgs) {
+  let numbers = [];
+
+  return function _curry(num){
+    numbers.push(num);
+    if (numbers.length === numArgs) {
+      return _curry;
+    } else {
+      Function.curry();
+    }
+  }
+};
+
+const dub = function (a, b, c) {
+  return (a + b + c) * 2;
+};
+
+const currySum = dub.curry(3);
+const result = currySum(1)(2)(3);
+console.log(result);
